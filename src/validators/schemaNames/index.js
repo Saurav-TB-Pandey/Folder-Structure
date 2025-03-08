@@ -1,4 +1,4 @@
-import { signupSchema } from "../schema/index.js";
+import { signupSchema, loginSchema } from "../schema/index.js";
 
 /**
  * Schema names module.
@@ -15,7 +15,8 @@ import { signupSchema } from "../schema/index.js";
  * @property {Joi.ObjectSchema} signup - The signup schema.
  */
 const schemas = {
-    signup: signupSchema,
+  userSignup: signupSchema,
+  userLogin: loginSchema,
 };
 
 export default schemas;

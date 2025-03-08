@@ -24,18 +24,18 @@
  * @property {string} NODE_ENV - The current environment (development, production, etc.).
  */
 export const config = {
-    PORT: process.env.PORT,
-    MONGODB_URI: process.env.MONGODB_URI,
-    DB_NAME: process.env.DB_NAME,
-    ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
-    ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY,
-    REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
-    REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY,
-    RESET_PASSWORD_TOKEN_SECRET: process.env.RESET_PASSWORD_TOKEN_SECRET,
-    RESET_PASSWORD_TOKEN_EXPIRY: process.env.RESET_PASSWORD_TOKEN_EXPIRY,
-    ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
-    SALT_WORK_FACTOR: process.env.SALT_WORK_FACTOR,
-    NODE_ENV: process.env.NODE_ENV,
+  PORT: process.env.PORT,
+  MONGODB_URI: process.env.MONGODB_URI,
+  DB_NAME: process.env.DB_NAME,
+  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY,
+  REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY,
+  RESET_PASSWORD_TOKEN_SECRET: process.env.RESET_PASSWORD_TOKEN_SECRET,
+  RESET_PASSWORD_TOKEN_EXPIRY: process.env.RESET_PASSWORD_TOKEN_EXPIRY,
+  ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
+  SALT_WORK_FACTOR: process.env.SALT_WORK_FACTOR,
+  NODE_ENV: process.env.NODE_ENV,
 };
 
 /**
@@ -50,10 +50,24 @@ export const config = {
  * @property {boolean} REJECT_UNAUTHORIZED - Whether to reject unauthorized SSL/TLS connections.
  */
 export const emailConfig = {
-    HOST: process.env.EMAIL_HOST,
-    PORT: process.env.EMAIL_PORT,
-    EMAIL: process.env.EMAIL,
-    PASSWORD: process.env.EMAIL_PASSWORD,
-    CIPHERS: process.env.EMAIL_CIPHERS,
-    REJECT_UNAUTHORIZED: process.env.EMAIL_REJECT_UNAUTHORIZED,
+  HOST: process.env.EMAIL_HOST,
+  PORT: process.env.EMAIL_PORT,
+  EMAIL: process.env.EMAIL,
+  PASSWORD: process.env.EMAIL_PASSWORD,
+  CIPHERS: process.env.EMAIL_CIPHERS,
+  REJECT_UNAUTHORIZED: process.env.EMAIL_REJECT_UNAUTHORIZED,
+};
+
+/**
+ * Claudinary configuration.
+ *
+ * @type {Object}
+ * @property {string} CLOUD_NAME - The claudinary cloud name.
+ * @property {string} API_KEY - The claudinary api key.
+ * @property {string} API_SECRET - The claudinary api secret.
+ */
+export const claudinaryConfig = {
+  CLOUD_NAME: process.env.CLAUDINARY_CLOUD_NAME,
+  API_KEY: process.env.CLAUDINARY_API_KEY,
+  API_SECRET: process.env.CLAUDINARY_API_SECRET,
 };

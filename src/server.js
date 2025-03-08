@@ -19,18 +19,17 @@ dotenv.config({ path: "./.env" });
  * Connects to the database and starts the server.
  */
 connectDB()
-    .then(() => {
-        // Get the port from the configuration
-        const PORT = config.PORT;
+  .then(() => {
+    // Get the port from the configuration
+    const PORT = config.PORT;
 
-        // Start the server and log the server's status
-        server.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-            logger.info(`Server is running on port ${PORT}`);
-        });
-    })
-    .catch((err) => {
-        // Log any errors that occur during startup
-        logger.error("Error starting the server:", err);
-        process.exit(1);
+    // Start the server and log the server's status
+    server.listen(PORT, () => {
+      logger.info(`Server is running on port ${PORT}`);
     });
+  })
+  .catch((err) => {
+    // Log any errors that occur during startup
+    logger.error("Error starting the server:", err);
+    process.exit(1);
+  });

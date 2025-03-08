@@ -19,31 +19,72 @@ import { ApiError, sendSuccessResponse } from "../utils/response/index.js";
  * @returns {Promise<void>}
  */
 export const userSignup = async (req, res) => {
-    const { name, userName, email, password } = req?.validatedData;
+  const { firstName, lastName, userName, email, password } = req?.validatedData;
 
-    const [isEmailExists, isUsernameExists] = await Promise.all([
-        isExists(Users, { email }),
-        isExists(Users, { userName }),
-    ]);
+  const [isEmailExists, isUsernameExists] = await Promise.all([
+    isExists(Users, { email }),
+    isExists(Users, { userName }),
+  ]);
 
-    if (isEmailExists) {
-        throw new ApiError(409, "Email already in use.");
-    }
+  if (isEmailExists) {
+    throw new ApiError(409, "Email already in use.");
+  }
 
-    if (isUsernameExists) {
-        throw new ApiError(409, "Username already in use.");
-    }
+  if (isUsernameExists) {
+    throw new ApiError(409, "Username already in use.");
+  }
 
-    const user = await new Users({
-        email,
-        userName,
-        name,
-        password,
-    })?.save();
+  const user = await new Users({
+    email,
+    userName,
+    firstName,
+    lastName,
+    password,
+  })?.save();
 
-    if (!user) {
-        throw new ApiError(500, "Error creating the profile.");
-    }
+  if (!user) {
+    throw new ApiError(500, "Error creating the profile.");
+  }
 
-    return sendSuccessResponse(res, 200, "Profile created.");
+  return sendSuccessResponse(res, 200, "Profile created.");
+};
+
+/**
+ * Handles the user login process and generates the access token.
+ *
+ * @function userLogin
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @returns {Promise<void>}
+ */
+export const userLogin = async (req, res) => {
+  console.log(req.fileUrl, " ...........................", req.fileData);
+
+  const { email, password } = req?.validatedData;
+
+  const [isEmailExists, isUsernameExists] = await Promise.all([
+    isExists(Users, { email }),
+    isExists(Users, { userName }),
+  ]);
+
+  if (isEmailExists) {
+    throw new ApiError(409, "Email already in use.");
+  }
+
+  if (isUsernameExists) {
+    throw new ApiError(409, "Username already in use.");
+  }
+
+  const user = await new Users({
+    email,
+    userName,
+    name,
+    password,
+  })?.save();
+
+  if (!user) {
+    throw new ApiError(500, "Error creating the profile.");
+  }
+
+  return sendSuccessResponse(res, 200, "Profile created.");
 };

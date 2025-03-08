@@ -1,5 +1,6 @@
 import schemas from "./schemaNames/index.js";
 import { throwValidationError, ApiError } from "../utils/response/index.js";
+import { asyncHandler } from "../middlewares/asyncHandler.middlewares.js";
 
 /**
  * Data validation middleware module.
@@ -16,27 +17,27 @@ import { throwValidationError, ApiError } from "../utils/response/index.js";
  * @returns {Function} The middleware function.
  */
 const validateData = (type) => {
-    return async (req, _, next) => {
-        const schema = schemas[type];
+  return asyncHandler(async (req, _, next) => {
+    const schema = schemas[type];
 
-        if (!schema) {
-            throw new ApiError(500, "Something is wrong.");
-        }
+    if (!schema) {
+      throw new ApiError(500, "Validation schema not found.");
+    }
 
-        // Validate the data using the schema
-        const { error, value } = schema?.validate(req.body);
+    // Validate the data using the schema
+    const { error, value } = schema?.validate(req.body);
 
-        if (error) {
-            // Throw a validation error if there are any issues
-            throwValidationError(error);
-        }
+    if (error) {
+      // Throw a validation error if there are any issues
+      throwValidationError(error);
+    }
 
-        // Attach the validated data to the request object
-        req.validatedData = value;
+    // Attach the validated data to the request object
+    req.validatedData = value;
 
-        // Call the next middleware
-        next();
-    };
+    // Call the next middleware
+    next();
+  });
 };
 
 export default validateData;

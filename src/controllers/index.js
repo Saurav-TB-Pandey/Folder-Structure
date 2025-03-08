@@ -1,4 +1,4 @@
-import { userSignup } from "./auth.controllers.js";
+import { userSignup, userLogin } from "./auth.controllers.js";
 
 /**
  * Controllers index module.
@@ -16,3 +16,12 @@ import { userSignup } from "./auth.controllers.js";
  * @param {Object} res - The Express response object.
  */
 export { userSignup };
+
+/**
+ * Exports the user login controller function.
+ *
+ * @function userLogin
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ */
+export { userLogin };
