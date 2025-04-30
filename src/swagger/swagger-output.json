@@ -1,0 +1,194 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Chat Book API",
+    "description": "API Documentation for the Chat Book Application",
+    "version": "1.0.0",
+    "contact": {
+      "name": "API Support",
+      "email": "support@example.com",
+      "url": "https://example.com/support"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8080/api/v1",
+  "basePath": "/",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format 'Bearer <token>'"
+    }
+  },
+  "paths": {
+    "/auth/access-token": {
+      "get": {
+        "summary": "Generate new access token",
+        "description": "API to generate new access token for the x-time API request.",
+        "operationId": "generateAccessToken",
+        "responses": {
+          "200": {
+            "description": "Access token generated",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string", "description": "Success" },
+                "message": {
+                  "type": "string",
+                  "description": "Access token generated."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string", "description": "Access token" }
+                  }
+                }
+              }
+            }
+          },
+          "500": { "description": "Something is wrong." }
+        }
+      }
+    },
+    "/customers": {
+      "post": {
+        "summary": "Fetch customer details",
+        "description": "API to fetch customer details based on the provided data.",
+        "operationId": "fetchCustomerDetails",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the customer"
+                },
+                "phone": {
+                  "type": "string",
+                  "description": "Customer phone number"
+                }
+              },
+              "required": ["name", "phone"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer details fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string", "example": "success" },
+                "message": {
+                  "type": "string",
+                  "example": "Customer details retrieved."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "customer": {
+                      "type": "object",
+                      "properties": {
+                        "firstName": { "type": "string" },
+                        "lastName": { "type": "string" },
+                        "email": { "type": "string" },
+                        "phone": { "type": "string" },
+                        "vehicles": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "vin": { "type": "string" },
+                              "year": { "type": "integer" },
+                              "make": { "type": "string" },
+                              "model": { "type": "string" },
+                              "mileage": { "type": "string" }
+                            }
+                          }
+                        },
+                        "appointments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "confKey": { "type": "string" },
+                              "year": { "type": "integer" },
+                              "make": { "type": "string" },
+                              "model": { "type": "string" },
+                              "appointmentDateTimeLocal": { "type": "string" },
+                              "createdDateTimeLocal": { "type": "string" },
+                              "transportationType": { "type": "string" },
+                              "services": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "serviceName": { "type": "string" },
+                                    "opcode": { "type": "string" },
+                                    "price": { "type": "string" },
+                                    "comment": { "type": "string" }
+                                  }
+                                }
+                              },
+                              "valet": {
+                                "type": "object",
+                                "properties": {
+                                  "pickupAddress": { "type": "string" },
+                                  "dropOffAddress": { "type": "string" },
+                                  "comments": { "type": "string" },
+                                  "loaner": { "type": "boolean" }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token"
+          },
+          "404": {
+            "description": "Customer not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string", "example": "Failure" },
+                "message": {
+                  "type": "string",
+                  "example": "No customers found for 9570823816"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Validation failed"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
